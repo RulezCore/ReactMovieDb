@@ -1,6 +1,7 @@
 .menu-top {
   display: flex;
-  align-items: center;
+  // align-items: center;
+  height: 62px !important;
 
   &__logo {
     display: flex;
@@ -8,6 +9,8 @@
 
     svg {
       width: 40px;
+      padding-top: 12px;
+      // margin-top: 12px;
     }
   }
 }

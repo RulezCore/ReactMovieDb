@@ -10,7 +10,9 @@ const MenuTop = () => {
   return (
     <div className="menu-top">
       <div className="menu-top__logo">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
       </div>
       <Menu
         theme="dark"
