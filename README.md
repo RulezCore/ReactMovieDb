@@ -73,4 +73,4 @@ To run de aplication need create in folder utils a file named constants.js
 
     export const  URL_API  =  "https://api.themoviedb.org/3";
 
-    export const  TOKEN  =  "5ede8f6621d5f5e4b1ecf4a81bf360a8";
+    export const  TOKEN  =  "YOUR TOKEN HERE";
