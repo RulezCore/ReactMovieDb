@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Pages
 import Home from "./pages/home";
-import Movie from "./pages/movie";
+import Movie from "./pages/movie/";
 import Popular from "./pages/popular";
 import NewMovies from "./pages/new-movies";
 import Search from "./pages/search";
@@ -16,8 +16,8 @@ function App() {
   return (
     <Layout>
       <Router>
-        <Header>
-          <MenuTop />
+        <Header style={{ zIndex: 999 }}>
+          <MenuTop></MenuTop>
         </Header>
         <Content>
           <Switch>
