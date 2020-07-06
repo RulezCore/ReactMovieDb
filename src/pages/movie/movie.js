@@ -1,5 +1,6 @@
-import React from "react";
-import { Row, Col, Button } from "antd";
+import React, { useState } from "react";
+import { Row, Col, Button, Modal } from "antd";
+import { PlayCircleOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import useFetch from "../../hooks/useFetch";
@@ -26,7 +27,7 @@ export default Movie;
 
 const RenderMovie = (props) => {
   const {
-    movie: { title, backdrop_path, poster_path },
+    movie: { backdrop_path, poster_path },
   } = props;
 
   console.log(props);
@@ -41,7 +42,7 @@ const RenderMovie = (props) => {
           <PosterMovie image={poster_path} />
         </Col>
         <Col span={10} className="movie__info">
-          Movie Info...
+          <MovieInfo movieInfo={props.movie} />
         </Col>
       </Row>
     </div>
@@ -53,4 +54,66 @@ const PosterMovie = (props) => {
   const posterPath = `https://image.tmdb.org/t/p/original${image}`;
 
   return <div style={{ backgroundImage: `url(${posterPath})` }}></div>;
+};
+
+const MovieInfo = (props) => {
+  const {
+    movieInfo: { id, title, release_date, overview, genres },
+  } = props;
+
+  return (
+    <>
+      <div className="movie__info-header">
+        <h1>
+          {title}{" "}
+          <span>{moment(release_date, "YYYY-MM-DD").format("YYYY")}</span>
+        </h1>
+        <ModalButton />
+      </div>
+      <div className="movie__info-content">
+        <h3>General:</h3>
+        <p>{overview}</p>
+        <h3>Generos:</h3>
+        <ul>
+          {genres.map((genre) => (
+            <li key={genre.id}>- {genre.name}</li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};
+
+const ModalButton = (props) => {
+  const [visible, setVisible] = useState(false);
+
+  const showModal = (e) => {
+    setVisible(true);
+  };
+
+  const handleOk = (e) => {
+    setVisible(false);
+  };
+
+  const handleCancel = (e) => {
+    setVisible(false);
+  };
+
+  return (
+    <>
+      <Button onClick={showModal} icon={<PlayCircleOutlined />}>
+        Ver Trailer
+      </Button>
+      <Modal
+        title="Basic Modal"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+    </>
+  );
 };

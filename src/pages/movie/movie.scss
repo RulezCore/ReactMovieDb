@@ -29,4 +29,68 @@
       background-size: contain;
     }
   }
+
+  &__info {
+    height: 70%;
+    color: white;
+    position: relative;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      h1 {
+        color: white;
+        margin: 0;
+        font-size: 60px;
+
+        span {
+          font-size: 20px;
+          margin-left: 10px;
+          opacity: 0.5;
+        }
+      }
+
+      button {
+        // position: absolute;
+        // top: -200px;
+        // right: -20px;
+        height: 100%;
+        background-color: transparent;
+        font-size: 22px !important;
+        color: white;
+        border: 0;
+        font-size: 25px;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: transparent;
+          color: turquoise;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-content {
+      margin-top: 50px;
+
+      h3 {
+        color: white;
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 20px;
+
+        li {
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
