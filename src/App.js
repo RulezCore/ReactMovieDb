@@ -14,7 +14,7 @@ import Error404 from "./pages/error-404";
 function App() {
   const { Header, Content } = Layout;
   return (
-    <Layout>
+    <Layout className="app">
       <Router>
         <Header style={{ zIndex: 999 }}>
           <MenuTop></MenuTop>
