@@ -6,7 +6,7 @@
 .pnp.js
 
 # TOKEN
-/src/utils/constants.js
+/src/utils/*
 
 # testing
 /coverage

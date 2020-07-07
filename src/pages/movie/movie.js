@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React, { useState } from "react";
 import { Row, Col, Button, Modal } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import useFetch from "../../hooks/useFetch";
+import ModalVideo from "../../components/ModalVideo";
 import { URL_API, TOKEN } from "../../utils/constants";
 import Loading from "../../components/Loading";
 
@@ -57,18 +59,52 @@ const PosterMovie = (props) => {
 };
 
 const MovieInfo = (props) => {
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+
   const {
     movieInfo: { id, title, release_date, overview, genres },
   } = props;
+
+  const videoMovie = useFetch(
+    `${URL_API}/movie/${id}/videos?api_key=${TOKEN}&language=es-ES`
+  );
+
+  const openModal = () => setIsVisibleModal(true);
+  const closeModal = () => setIsVisibleModal(false);
+
+  const renderVideo = () => {
+    if (videoMovie.loading) {
+      return <Loading />;
+    }
+
+    if (videoMovie.result) {
+      console.log(videoMovie.result);
+      if (videoMovie.result.results.length > 0) {
+        return (
+          <>
+            <Button icon={<PlayCircleOutlined />} onClick={openModal}>
+              Ver trailer
+            </Button>
+            <ModalVideo
+              videoKey={videoMovie.result.results[0].key}
+              videoPlatform={videoMovie.result.results[0].site}
+              isOpen={isVisibleModal}
+              close={closeModal}
+            />
+          </>
+        );
+      }
+    }
+  };
 
   return (
     <>
       <div className="movie__info-header">
         <h1>
-          {title}{" "}
+          {title}
           <span>{moment(release_date, "YYYY-MM-DD").format("YYYY")}</span>
         </h1>
-        <ModalButton />
+        {renderVideo()}
       </div>
       <div className="movie__info-content">
         <h3>General:</h3>
@@ -84,36 +120,61 @@ const MovieInfo = (props) => {
   );
 };
 
-const ModalButton = (props) => {
-  const [visible, setVisible] = useState(false);
+// const ModalButton = (props) => {
+//   const [visible, setVisible] = useState(false);
 
-  const showModal = (e) => {
-    setVisible(true);
-  };
+//   // const { id } = props;
 
-  const handleOk = (e) => {
-    setVisible(false);
-  };
+//   // Request
+//
 
-  const handleCancel = (e) => {
-    setVisible(false);
-  };
+//   // Request
+//   if (trailer.loading || !trailer.result) {
+//     return <Loading />;
+//   }
 
-  return (
-    <>
-      <Button onClick={showModal} icon={<PlayCircleOutlined />}>
-        Ver Trailer
-      </Button>
-      <Modal
-        title="Basic Modal"
-        visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
-  );
-};
+//   console.log(trailer.result.results[0]);
+
+//   const { movieTitle } = props;
+
+//   const { key } = trailer.result.results[0];
+
+//   // Modal functions
+//   const showModal = (e) => {
+//     setVisible(true);
+//   };
+
+//   const handleOk = (e) => {
+//     setVisible(false);
+//   };
+
+//   const handleCancel = (e) => {
+//     setVisible(false);
+//   };
+
+//   return (
+//     <>
+//       <Button onClick={showModal} icon={<PlayCircleOutlined />}>
+//         Ver Trailer
+//       </Button>
+//       <Modal
+//         title={movieTitle}
+//         visible={visible}
+//         onOk={handleOk}
+//         onCancel={handleCancel}
+//         width={650}
+//         footer={null}
+//       >
+//         <iframe
+//           width="560"
+//           height="315"
+//           src={`https://www.youtube.com/embed/${key}`}
+//           frameborder="0"
+//           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+//           allowfullscreen
+//           autoplay
+//         ></iframe>
+//       </Modal>
+//     </>
+//   );
+// };
