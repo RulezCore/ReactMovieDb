@@ -11,14 +11,10 @@ const NewMovies = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    console.log("Actualizando");
-
     (async () => {
       const response = await fetch(
         `${URL_API}/movie/now_playing/?api_key=${TOKEN}&language=es-ES&page=${page}`
       );
-
-      console.log(response);
 
       const movies = await response.json();
       setMovieList(movies);

@@ -32,8 +32,6 @@ const RenderMovie = (props) => {
     movie: { backdrop_path, poster_path },
   } = props;
 
-  console.log(props);
-
   const backdropPath = `https://image.tmdb.org/t/p/original${backdrop_path}`;
 
   return (
@@ -78,7 +76,6 @@ const MovieInfo = (props) => {
     }
 
     if (videoMovie.result) {
-      console.log(videoMovie.result);
       if (videoMovie.result.results.length > 0) {
         return (
           <>
