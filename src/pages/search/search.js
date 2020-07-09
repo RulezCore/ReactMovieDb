@@ -4,34 +4,29 @@ import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 import MovieCatalog from "../../components/MovieCatalog";
 import Footer from "../../components/Footer";
+import Emoji from "../../assets/img/emoji.png";
 import { URL_API, TOKEN } from "../../utils/constants";
 
 // CSS
 import "./search.scss";
 
 const Search = (props) => {
-  const { location, history } = props;
   const [movieList, setMovieList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     (async () => {
-      const searchValue = queryString.parseUrl(location.search);
-      const { s } = searchValue.query;
       const response = await fetch(
-        `${URL_API}/search/movie?api_key=${TOKEN}&language=es-ES&query=${s}&page=1`
+        `${URL_API}/search/movie?api_key=${TOKEN}&language=es-ES&query=${searchValue}&page=1`
       );
 
       const movies = await response.json();
       setMovieList(movies);
-      setSearchValue(s);
     })();
-  }, [location.search]);
+  }, [searchValue]);
 
   const onChangeSearch = (e) => {
-    const urlParams = queryString.parse(location.search);
-    urlParams.s = e.target.value;
-    history.push(`?${queryString.stringify(urlParams)}`);
+    setSearchValue(e.target.value);
   };
 
   return (
@@ -51,6 +46,12 @@ const Search = (props) => {
               <MovieCatalog movies={movieList} />
             </Row>
           </Col>
+          {movieList.total_results < 1 && (
+            <>
+              <h2>No se han encontrado peliculas...</h2>
+              <img src={Emoji} alt="e" />
+            </>
+          )}
         </Row>
       )}
       <Col span={24}>

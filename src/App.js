@@ -10,6 +10,7 @@ import Popular from "./pages/popular";
 import NewMovies from "./pages/new-movies";
 import Search from "./pages/search/";
 import Error404 from "./pages/error-404";
+import Footer from "./components/Footer";
 
 function App() {
   const { Header, Content } = Layout;
