@@ -8,7 +8,7 @@ import Home from "./pages/home";
 import Movie from "./pages/movie/";
 import Popular from "./pages/popular";
 import NewMovies from "./pages/new-movies";
-import Search from "./pages/search";
+import Search from "./pages/search/";
 import Error404 from "./pages/error-404";
 
 function App() {
