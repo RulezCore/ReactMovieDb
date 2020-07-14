@@ -1,6 +1,6 @@
 ## **Installation:**
 
-To run this project need create a file into /utils with this lines:
+To run this project need create a file into /utils named constants.js with this lines:
 
     export const  URL_API  =  "https://api.themoviedb.org/3";
 
